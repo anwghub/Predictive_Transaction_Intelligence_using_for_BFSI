@@ -9,3 +9,5 @@ python-dotenv
 pydantic
 joblib
 pyyaml
+seaborn
+matplotlib
