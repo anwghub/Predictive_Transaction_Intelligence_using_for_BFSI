@@ -1,19 +1,25 @@
-from flask import Flask
-from src.preprocessing import run_processing
+from fastapi import FastAPI
+from src.api.transactions import router as transaction_router
+from src.preprocessing.cleaning_pipeline import pipeline
+from src.preprocessing.train_test_split import create_train_test_split
+from src.database.db import create_database, insert_processed_data
 
-app = Flask(__name__)
 
-@app.route("/")
+app = FastAPI(title="Transaction API Backend")
+
+# Register API routes
+app.include_router(transaction_router)
+
+@app.get("/")
 def home():
-    return "Flask app is running!"
+    return {"message": "Backend Running"}
 
-@app.route("/process")
-def process():
-    run_processing()
-    return "Processing completed!"
 
-if __name__ == "__main__":
-    run_processing()
-    
-    # Run Flask app on port 8000
-    app.run(host="0.0.0.0", port=8000, debug=True)
+@app.on_event("startup")
+def run_pipeline_on_start():
+    print("Running preprocessing pipeline...")
+    pipeline()
+    print("Pipeline finished!")
+    create_train_test_split()
+    create_database()
+    insert_processed_data()
