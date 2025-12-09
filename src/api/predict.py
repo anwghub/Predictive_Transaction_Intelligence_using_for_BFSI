@@ -1,31 +1,31 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, Query
 import joblib
 import pandas as pd
 import os
 
 router = APIRouter()
 
-# --------------------------------------
-# Absolute path based on predict.py
-# --------------------------------------
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Project root (same approach as train_model.py)
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+MODEL_PATH = os.path.join(BASE_DIR, "src", "ml", "fraud_model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "src", "ml", "scaler.pkl")
 
-MODEL_PATH = os.path.join(BASE_DIR, "ml", "fraud_model.pkl")
-SCALER_PATH = os.path.join(BASE_DIR, "ml", "scaler.pkl")
+model = None
+scaler = None
 
-print("MODEL PATH:", MODEL_PATH)
-print("SCALER PATH:", SCALER_PATH)
+def load_model_if_needed():
+    global model, scaler
+    if model is None or scaler is None:
+        if not os.path.exists(MODEL_PATH) or not os.path.exists(SCALER_PATH):
+            raise FileNotFoundError("Model or scaler not found. Train the model first.")
+        model = joblib.load(MODEL_PATH)
+        scaler = joblib.load(SCALER_PATH)
 
-# Load safely
-model = joblib.load(MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
 
-@router.post("/api/predict")
-def predict_transaction(data: dict):
-
+def _predict_from_dict(data: dict):
+    """Core prediction logic that expects a dict with feature keys."""
     df = pd.DataFrame([data])
 
-    # Required features
     feature_cols = [
         "kyc_verified",
         "account_age_days",
@@ -33,20 +33,78 @@ def predict_transaction(data: dict):
         "hour",
         "weekday",
         "month",
-        "is_high_value"
+        "is_high_value",
     ]
 
-    # Select features
-    features = df[feature_cols]
+    missing = [c for c in feature_cols if c not in df.columns]
+    if missing:
+        raise HTTPException(status_code=400, detail=f"Missing features: {missing}")
 
-    # Scale
-    scaled_features = scaler.transform(features)
+    features = df[feature_cols].copy()
+
+    # Map common boolean-like strings to integers
+    bool_map = {"Yes": 1, "No": 0, "Y": 1, "N": 0, "True": 1, "False": 0, True: 1, False: 0}
+    for col in ["kyc_verified", "is_high_value"]:
+        features[col] = features[col].map(bool_map).fillna(features[col])
+
+    # Coerce numeric columns and validate
+    for col in feature_cols:
+        features[col] = pd.to_numeric(features[col], errors="coerce")
+
+    if features.isna().any(axis=1).any():
+        invalid_cols = features.columns[features.isna().any()].tolist()
+        raise HTTPException(status_code=400, detail=f"Invalid or non-numeric values in features: {invalid_cols}")
+
+    try:
+        scaled_features = scaler.transform(features)
+    except Exception as ex:
+        raise HTTPException(status_code=500, detail=f"Error scaling features: {ex}")
 
     prediction = model.predict(scaled_features)[0]
-    risk_score = float(model.predict_proba(scaled_features)[0][1])
+    risk_score = float(model.predict_proba(scaled_features)[0][1]) if hasattr(model, "predict_proba") else 0.0
 
     return {
-        "prediction": "Fraud" if prediction == 1 else "Legit",
-        "is_fraud": bool(prediction),
-        "risk_score": risk_score
+        "prediction": "Fraud" if int(prediction) == 1 else "Legit",
+        "is_fraud": bool(int(prediction)),
+        "risk_score": risk_score,
     }
+
+
+@router.post("/api/predict")
+def predict_transaction(data: dict):
+    try:
+        load_model_if_needed()
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+    return _predict_from_dict(data)
+
+
+@router.get("/api/predict")
+def predict_transaction_get(
+    kyc_verified: int = Query(None),
+    account_age_days: int = Query(None),
+    transaction_amount: float = Query(None),
+    hour: int = Query(None),
+    weekday: int = Query(None),
+    month: int = Query(None),
+    is_high_value: int = Query(None),
+):
+    """Convenience GET endpoint for quick testing (recommended only for dev)."""
+    try:
+        load_model_if_needed()
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+
+    data = {
+        "kyc_verified": kyc_verified,
+        "account_age_days": account_age_days,
+        "transaction_amount": transaction_amount,
+        "hour": hour,
+        "weekday": weekday,
+        "month": month,
+        "is_high_value": is_high_value,
+    }
+
+    # If any values are missing, FastAPI will return 422 for GET without query params.
+    return _predict_from_dict(data)
