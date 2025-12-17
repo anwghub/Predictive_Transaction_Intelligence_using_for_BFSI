@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Predict from "./pages/Predict";
 import Metrics from "./pages/Metrics";
 import Alert from "./pages/Alert";
+import History from "./pages/History";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);

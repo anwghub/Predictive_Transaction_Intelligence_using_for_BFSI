@@ -59,7 +59,7 @@ const LoginPage = () => {
             <p className="font-semibold cursor-pointer" onClick={()=> navigate('/forgot')}>Forget Password?</p>
             <button
               type="submit"
-              className="w-full hover:bg-[#6043D2] text-white text-lg font-semibold py-3 rounded-md bg-[#281b5d] transition duration-300 shadow-2xl " onClick={navigate('/dashboard')}
+              className="w-full hover:bg-[#6043D2] text-white text-lg font-semibold py-3 rounded-md bg-[#281b5d] transition duration-300 shadow-2xl " onClick={()=> navigate('/dashboard')}
             >
               Login
             </button>
