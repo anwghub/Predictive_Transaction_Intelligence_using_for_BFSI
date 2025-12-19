@@ -72,7 +72,7 @@ export default function MainBanner() {
         />
 
         <div className="flex items-center gap-4 mt-4 text-lg justify-center">
-          <button className="bg-[#6043D2] text-current rounded-md px-10 h-14 active:scale-95 cursor-pointer font-bold mt-6 shadow-lg hover:shadow-[0_0_20px_rgba(99,102,241,0.7)]
+          <button className="bg-[#6043D2] text-current rounded-md px-10 h-14 active:scale-95 cursor-pointer font-bold mt-6 shadow-lg hover:shadow-[0_0_20px_white]
                    transition-all duration-300 border-3 border-[#2e1f6b]">
             Get started
           </button>
