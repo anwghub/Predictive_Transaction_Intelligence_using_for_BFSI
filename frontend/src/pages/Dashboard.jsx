@@ -7,7 +7,7 @@ const Dashboard = () => {
       <SideBar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 ml-30 mt-25 mr-10">
+      <div className="flex-1 p-6 ml-20 mt-25 mr-15">
         
         {/* Header */}
         <h1 className="text-2xl font-bold mb-6">Dashboard</h1>

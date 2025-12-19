@@ -6,7 +6,7 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='w-1/5 p-2 min-h-screen bg-pink-200 flex justify-center items-center'>
+    <div className='w-1/5 p-2 min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex justify-center items-center'>
       <div className='font-bold text-xl text-center space-y-10'>
         <div className='pb-10 text-xl mt-16 flex gap-1 items-center'>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">

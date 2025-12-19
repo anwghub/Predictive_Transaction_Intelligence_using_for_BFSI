@@ -9,7 +9,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 flex items-center px-6 py-6 border-b border-white/10
+      className={`fixed top-0 left-0 w-full z-50 flex items-center px-6 py-3.5 border-b border-white/10
         ${
           darkMode? "bg-[linear-gradient(#2C0F4B,#704E95,#2C0F4B)] text-white"
             : "bg-[linear-gradient(#C792FF,#FDFBFF,#C792FF)] text-black"
