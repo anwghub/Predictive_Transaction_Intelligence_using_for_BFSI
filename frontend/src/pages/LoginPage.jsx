@@ -24,7 +24,7 @@ const LoginPage = () => {
         
         {/* Left Image Section */}
         <div className="hidden md:flex w-1/2 items-center justify-center p-10 ml-10">
-          <img src={login} alt="Login" className="max-w-full h-auto" />
+          <img src={login} alt="Login" className="max-w-full h-auto animate-float" />
         </div>
 
         {/* Right Form Section */}
