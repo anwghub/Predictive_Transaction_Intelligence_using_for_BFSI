@@ -59,11 +59,11 @@ export default function MainBanner() {
       <section id="home" className="pb-20 mt-40 px-4 text-center">
 
         <h1 className="text-center whitespace-nowrap text-3xl md:text-4xl font-medium text-current">
-          Seemless Transaction System For BFSI
+          AI-Powered Transaction Intelligence for BFSI
         </h1>
 
         <p className="text-md text-current mt-4">
-          Unlock smarter workflows with AI tools designed to boost productivity.
+          Predict, monitor, and secure financial transactions in real time with intelligent insights and fraud detection.
         </p>
         <img
           src={hero}
@@ -72,7 +72,7 @@ export default function MainBanner() {
         />
 
         <div className="flex items-center gap-4 mt-4 text-lg justify-center">
-          <button className="bg-[#6043D2] text-current rounded-md px-10 h-14 active:scale-95 cursor-pointer font-bold mt-6 shadow-lg hover:shadow-[0_0_20px_white]
+          <button className="bg-linear-to-r from-purple-400 to-pink-500 text-current rounded-md px-10 h-14 active:scale-95 cursor-pointer font-bold mt-6 shadow-lg hover:shadow-[0_0_20px_white]
                    transition-all duration-300 border-3 border-[#2e1f6b]">
             Get started
           </button>
