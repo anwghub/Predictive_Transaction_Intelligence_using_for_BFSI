@@ -18,7 +18,7 @@ def get_db():
 
 # ---------- REGISTER ----------
 @router.post("/register")
-def register(email: str, password: str):
+def register(username:str, email: str, password: str):
     conn = get_db()
     cursor = conn.cursor()
 
@@ -28,8 +28,8 @@ def register(email: str, password: str):
         raise HTTPException(status_code=400, detail="Email already registered")
 
     cursor.execute(
-        "INSERT INTO users (email, password) VALUES (?, ?)",
-        (email, hash_password(password))
+        "INSERT INTO users (username, email, password) VALUES (?, ?)",
+        (username, email, hash_password(password))
     )
     conn.commit()
     conn.close()
