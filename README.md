@@ -33,6 +33,7 @@ Model Storage | Joblib
 Environment Config | python-dotenv
 Testing | Postman
 Graph | Matplotlib, Seaborn
+Frontend | React.js
 ---
 
 ## 📂 Project Structure
@@ -301,5 +302,6 @@ A **real-time, explainable fraud detection backend** ready for frontend integrat
 **Anwesa Ghosh**  
 Backend Developer | ML & AI  
 Predictive_Transaction_Intelligence_using_for_BFSI – Infosys SpringBoard 6.0 Internship Project
+
 
 
