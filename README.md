@@ -1,7 +1,7 @@
 # 🛡️ Predictive_Transaction_Intelligence_using_for_BFSI
 
-A **FastAPI-based backend system** that detects fraudulent financial transactions using **Machine Learning**, **Rule-Based Logic**, and **LLM (Google Gemini) Explainability**.  
-Designed as a **production-ready fintech backend** with alerts, explainable AI, and database persistence.
+A production-grade fraud detection system designed for the Banking, Financial Services, and Insurance (BFSI) domain.
+The system detects fraudulent financial transactions in real time using **Machine Learning**, **Rule-Based Intelligence**, and **LLM-powered Explainability**, ensuring accuracy, transparency, and compliance.
 
 ---
 
@@ -37,7 +37,8 @@ Frontend | React.js
 ---
 
 ## 📂 Project Structure
-predictive-transaction-backend/
+predictive-transaction/
+|── frontend 
 │── main.py
 │── .env
 │── README.md
@@ -161,7 +162,6 @@ data/eda/graphs/
 python src/preprocessing/train_test_split.py
 
 Creates:
-
 - train.csv
 - test.csv
 
@@ -235,7 +235,7 @@ http://127.0.0.1:8000/api/transactions/download/csv
 
 ### 🚩 Milestone 2 – Machine Learning Pipeline
 - ✔ Train/Test split
-- ✔ Fraud classification model
+- ✔ Fraud classification model (Random Forest Classifer)
 - ✔ Model evaluation metrics
 - ✔ Model persistence (PKL files)
 
@@ -283,6 +283,7 @@ http://127.0.0.1:8000/api/transactions/download/csv
 - ✔️ API key loaded via `.env`
 - ✔️ No hardcoded secrets
 - ✔️ Production-ready environment handling
+- ✔️ Feedback for the customer for future enhancements
 
 **Outcome:**  
 A **real-time, explainable fraud detection backend** ready for frontend integration.
@@ -292,7 +293,7 @@ A **real-time, explainable fraud detection backend** ready for frontend integrat
 ## 🔮 Future Milestones 
 
 - Kafka / Redis streaming
-- Docker & CI/CD
+- Deploying on a Cloud Platform
 - Auto rule discovery using LLMs
 
 ---
@@ -300,8 +301,9 @@ A **real-time, explainable fraud detection backend** ready for frontend integrat
 ## 👨‍💻 Author
 
 **Anwesa Ghosh**  
-Backend Developer | ML & AI  
+Backend Developer | AI Intern Infosys SpringBoard  
 Predictive_Transaction_Intelligence_using_for_BFSI – Infosys SpringBoard 6.0 Internship Project
+If it helps you kindly give a star...
 
 
 
