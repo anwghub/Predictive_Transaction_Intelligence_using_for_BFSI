@@ -17,6 +17,8 @@ The system detects fraudulent financial transactions in real time using **Machin
 - 🔐 User Authentication System
 - 📈 Risk Trend Analytics
 - 🔄 Feedback Loop for Model Improvement
+- 🐳 Dockerized & cloud deployed
+- 🔐 HTTPS via Nginx reverse proxy
 
 ---
 
@@ -34,9 +36,12 @@ Environment Config | python-dotenv
 Testing | Postman
 Graph | Matplotlib, Seaborn
 Frontend | React.js
+Reverse Proxy | Nginx
+Deployment | Docker, Render
 ---
 
 ## 📂 Project Structure
+```bash
 predictive-transaction/
 |── frontend 
 │── main.py
@@ -69,7 +74,7 @@ predictive-transaction/
 │ └── transactions.db
 │
 └── requirements.txt
-
+```
 ---
 
 ## ⚙️ Installation & Setup
@@ -169,13 +174,9 @@ Creates:
 11 Train Fraud Detection Model
 python src/ml/train_model.py
 
-
 Generates:
-
 - src/ml/fraud_model.pkl
-
 - src/ml/scaler.pkl
-
 - src/ml/metrics.json
 
 ## Running the Backend Server
@@ -225,7 +226,16 @@ http://127.0.0.1:8000/api/transactions/download/csv
 
 ```
 ---
+## Model Metrics :
+| Metrics | Value |
+|---------|--------|
+| accuracy | 0.931 |
+| precision | 0.2631578947368421 |
+| recall | 0.05813953488372093 |
+| f1_score | 0.09523809523809523 |
+| auc | 0.7517174698488627 |
 
+----
 ## Backend Milestone Completion
 ### 🚩 Milestone 1 – Data Processing & Storage
 - ✔ Raw transaction ingestion
@@ -251,9 +261,10 @@ http://127.0.0.1:8000/api/transactions/download/csv
 - ✔ ML + Rules + LLM fully integrated
 - ✔ Analytics APIs (risk trend, recent feed)
 - ✔ Feedback loop for future retraining
-- ✔ Dataset download API
-- ✔ End-to-end backend testing (Postman)
-- ✔ Dockerized backend 
+-  ✔ End-to-end backend testing (Postman)
+- ✔ Docker containerization
+- ✔ Gunicorn + Nginx setup
+- ✔ HTTPS-enabled cloud deployment on Render
 
 
 ### 🧠 LLM Explainability (Gemini)
@@ -267,11 +278,11 @@ http://127.0.0.1:8000/api/transactions/download/csv
 - ✔️ `fraud_alerts` table created
 - ✔️ Automatic alert insertion on fraud detection
 - ✔️ Alert fields:
-- transaction_id
-- customer_id
-- risk_score
-- reason
-- timestamp
+   - transaction_id
+   - customer_id
+   - risk_score
+   - reason
+   - timestamp
 
 ### 🗄️ Database Enhancements
 
@@ -284,6 +295,9 @@ http://127.0.0.1:8000/api/transactions/download/csv
 - ✔️ No hardcoded secrets
 - ✔️ Production-ready environment handling
 - ✔️ Feedback for the customer for future enhancements
+- ✔️ Environment-based execution (local vs production)
+- ✔️ Secure API key handling via .env
+- ✔️ HTTPS termination at Nginx
 
 **Outcome:**  
 A **real-time, explainable fraud detection backend** ready for frontend integration.
@@ -293,7 +307,7 @@ A **real-time, explainable fraud detection backend** ready for frontend integrat
 ## 🔮 Future Milestones 
 
 - Kafka / Redis streaming
-- Deploying on a Cloud Platform
+- BlockChain to enhance security
 - Auto rule discovery using LLMs
 
 ---
@@ -304,6 +318,7 @@ A **real-time, explainable fraud detection backend** ready for frontend integrat
 Backend Developer | AI Intern Infosys SpringBoard  
 Predictive_Transaction_Intelligence_using_for_BFSI – Infosys SpringBoard 6.0 Internship Project
 If it helps you kindly give a star...
+
 
 
 
