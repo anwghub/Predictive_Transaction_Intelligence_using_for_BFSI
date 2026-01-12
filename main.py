@@ -56,7 +56,7 @@ def run_pipeline_on_start():
     #print("Running preprocessing pipeline...")
     pipeline()
     #print("Pipeline finished!")
-    #create_train_test_split()
+    create_train_test_split()
     
     create_transactions_table()
     create_fraud_alerts_table()
