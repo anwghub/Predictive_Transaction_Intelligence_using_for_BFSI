@@ -5,23 +5,18 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install system deps needed for some Python packages
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python deps first for better layer caching
-COPY requirements.txt /app/
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . /app/
+COPY . .
 
-# Create non-root user and switch
 RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
 EXPOSE 8000
 
-# Run Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000", "--workers", "4"]
