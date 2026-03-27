@@ -5,10 +5,10 @@ numpy
 scikit-learn
 joblib
 python-dotenv
-google-generative-ai
+google-generativeai
 passlib
 python-jose
 pydantic
 matplotlib
 seaborn
-
+gunicorn
